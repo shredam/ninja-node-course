@@ -1,15 +1,22 @@
-import fastify from "fastify";
+import Fastify from "fastify";
+import router from "./core/router";
 
-const server = fastify();
+const server = Fastify({
+  logger: true,
+});
 
-server.get("/", (requset, response) => {
+router.get("/", async (request: any, reply: any) => {
   return { hello: "world" };
 });
 
-async function start() {
-  await server.listen({ port: 3000 });
-
-  console.log("Server listening on port 3000");
-}
+const start = async () => {
+  router.scan(server);
+  try {
+    await server.listen({ port: 3000 });
+  } catch (err) {
+    server.log.error(err);
+    process.exit(1);
+  }
+};
 
 start();
