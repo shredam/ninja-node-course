@@ -1,3 +1,4 @@
+import request from "core/http/request";
 import { Route } from "./types";
 
 export class Router {
@@ -68,8 +69,19 @@ export class Router {
       const requsetMethod = route.method.toLowerCase();
       const requsetMethodunction = server[requsetMethod].bind(server);
 
-      requsetMethodunction(route.path, route.handler);
+      requsetMethodunction(route.path, this.handleRoute(route));
     });
+  }
+
+  private handleRoute(route: Route) {
+    return async (fastifyRequset: any, fastifyResponse: any) => {
+      request
+        .setRequest(fastifyRequset)
+        .setResponse(fastifyResponse)
+        .setHandler(route.handler);
+
+      return await request.execute();
+    };
   }
 }
 

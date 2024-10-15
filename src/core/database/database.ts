@@ -8,6 +8,10 @@ export class Database {
 
     return this;
   }
+
+  public collection(collectionName: string) {
+    return this.database.collection(collectionName);
+  }
 }
 
 const database = new Database();

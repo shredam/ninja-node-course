@@ -1,5 +1,12 @@
-export default function usersList(request: any) {
-  const query = request.query;
+import database from "core/database";
+import { Request } from "core/http/request";
 
-  return query;
+export default async function usersList(request: Request) {
+  const usersCollection = database.collection("users");
+
+  const users = await usersCollection.find({}).toArray();
+
+  return {
+    users,
+  };
 }
