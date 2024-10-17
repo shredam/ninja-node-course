@@ -1,4 +1,8 @@
 import { FastifyRequest } from "fastify";
+import UploadedFile from "./uploadedFile";
+import { Validator } from "core/validator";
+import { only } from "@mongez/reinforcements";
+import config from "@mongez/config";
 
 export class Request {
   public request: any;
@@ -26,6 +30,40 @@ export class Request {
   }
 
   public async execute() {
+    if (this.handler.validation) {
+      if (this.handler.validation.rules) {
+        const validator = new Validator(this, this.handler.validation.rules);
+
+        try {
+          await validator.scan();
+        } catch (error) {
+          console.log(error);
+        }
+
+        if (validator.fails()) {
+          const responseErrorsKey = config.get(
+            "validation.keys.response",
+            "errors",
+          );
+          const responseStatus = config.get("validation.responseStatus", 400);
+
+          return this.response.status(responseStatus).send({
+            [responseErrorsKey]: validator.errors(),
+          });
+        }
+      }
+      if (this.handler.validation.validate) {
+        const result = await this.handler.validation.validate(
+          this,
+          this.response,
+        );
+
+        if (result) {
+          return result;
+        }
+      }
+    }
+
     return await this.handler(this, this.response);
   }
 
@@ -54,9 +92,17 @@ export class Request {
   }
 
   private parseInputValue(data: any) {
-    if (data.value) return data.value;
+    if (data.file) return data;
+
+    if (data.value !== undefined) return data.value;
 
     return data;
+  }
+
+  public file(key: string): UploadedFile | null {
+    const file = this.input(key);
+
+    return file ? new UploadedFile(file) : null;
   }
 
   public get params() {
@@ -73,6 +119,10 @@ export class Request {
       ...this.params,
       ...this.query,
     };
+  }
+
+  public only(keys: string[]) {
+    return only(this.all, keys);
   }
 
   public bool(key: string, defaultValue = false) {
@@ -102,9 +152,9 @@ export class Request {
   }
 
   public number(key: string, defaultValue = 0) {
-    const value = this.input(key, defaultValue);
+    const value = Number(this.input(key, defaultValue));
 
-    return Number(value);
+    return isNaN(value) ? defaultValue : value;
   }
 }
 
