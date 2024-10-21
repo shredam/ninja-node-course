@@ -1,9 +1,13 @@
 import { rootPath } from "@mongez/node";
 import database from "core/database";
 import { Request } from "core/http/request";
+import User from "../models/user";
 
-export default async function createUser(requset: Request) {
-  const { name, email } = requset.body;
+export default async function createUser(request: Request) {
+  const { name, email } = request.body;
+
+  const usersCollection = User.query();
+
   // const image = requset.file("image");
 
   // let name = "";
@@ -45,8 +49,6 @@ createUser.validation = {
     email: ["required", "string"],
   },
   validate: async () => {
-    return {
-      error: "Bad Request",
-    };
+    return {};
   },
 };

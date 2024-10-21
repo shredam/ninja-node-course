@@ -1,5 +1,5 @@
-import { connectToDatabase } from "./database";
-import connectToServer from "core/http";
+import { connectToDatabase } from "core/database";
+import { connectToServer } from "core/http";
 
 export default async function startApplication() {
   connectToDatabase();

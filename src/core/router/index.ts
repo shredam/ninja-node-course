@@ -1,5 +1,6 @@
 import request from "core/http/request";
 import { Route } from "./types";
+import { Console } from "console";
 
 export class Router {
   private static instance: Router;
@@ -12,7 +13,6 @@ export class Router {
     if (!Router.instance) {
       Router.instance = new Router();
     }
-
     return Router.instance;
   }
 

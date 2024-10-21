@@ -6,7 +6,7 @@ import database, { Database } from "./database";
 export class Connection {
   public client?: MongoClient;
 
-  public database?: Database;
+  public database!: Database;
 
   public async connect() {
     if (this.client) return;

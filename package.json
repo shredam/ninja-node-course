@@ -1,41 +1,43 @@
 {
-    "name": "node-app",
-    "version": "1.0.0",
-    "private": true,
-    "dependencies": {
-        "@fastify/multipart": "^9.0.1",
-        "@mongez/config": "^1.0.26",
-        "@mongez/fs": "^3.0.5",
-        "@mongez/node": "^1.0.1",
-        "@mongez/reinforcements": "^2.3.10",
-        "@mongez/supportive-is": "^2.0.4",
-        "chalk": "4",
-        "fastify": "^5.0.0",
-        "mongodb": "^6.9.0",
-        "underscore": "^1.13.7"
-    },
-    "scripts": {
-        "start": "nodemon src/index.ts --app",
-        "update": "npx ncu -u",
-        "lint": "npx eslint -c ./.eslintrc.json ./src",
-        "fix": "npx eslint --fix -c ./.eslintrc.json ./src",
-        "format": "npx prettier --write ./**/*.{js,jsx,ts,tsx,css,md,json} --config ./.prettierrc.json"
-    },
-    "devDependencies": {
-        "@types/node": "^22.7.5",
-        "@types/underscore": "^1.11.15",
-        "@typescript-eslint/eslint-plugin": "^8.8.1",
-        "@typescript-eslint/parser": "^8.8.1",
-        "eslint": "^9.12.0",
-        "eslint-config-prettier": "^9.1.0",
-        "eslint-plugin-prettier": "^5.2.1",
-        "eslint-plugin-unused-imports": "^4.1.4",
-        "nodemon": "^3.1.7",
-        "npm-check-updates": "^17.1.3",
-        "prettier": "^3.3.3",
-        "prettier-plugin-organize-imports": "^4.1.0",
-        "ts-node": "^10.9.2",
-        "tsconfig-paths": "^4.2.0",
-        "typescript": "^5.6.3"
-    }
+  "name": "node-app",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@fastify/multipart": "^9.0.1",
+    "@mongez/config": "^1.0.26",
+    "@mongez/dotenv": "^1.1.9",
+    "@mongez/fs": "^3.0.5",
+    "@mongez/node": "^1.0.1",
+    "@mongez/password": "^1.0.2",
+    "@mongez/reinforcements": "^2.3.10",
+    "@mongez/supportive-is": "^2.0.4",
+    "chalk": "4",
+    "fastify": "^5.0.0",
+    "mongodb": "^6.9.0",
+    "underscore": "^1.13.7"
+  },
+  "scripts": {
+    "start": "nodemon src/index.ts --app",
+    "update": "npx ncu -u",
+    "lint": "npx eslint -c ./.eslintrc.json ./src",
+    "fix": "npx eslint --fix -c ./.eslintrc.json ./src",
+    "format": "npx prettier --write ./**/*.{js,jsx,ts,tsx,css,md,json} --config ./.prettierrc.json"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.7",
+    "@types/underscore": "^1.13.0",
+    "@typescript-eslint/eslint-plugin": "^8.10.0",
+    "@typescript-eslint/parser": "^8.10.0",
+    "eslint": "^9.13.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-unused-imports": "^4.1.4",
+    "nodemon": "^3.1.7",
+    "npm-check-updates": "^17.1.4",
+    "prettier": "^3.3.3",
+    "prettier-plugin-organize-imports": "^4.1.0",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.6.3"
+  }
 }
